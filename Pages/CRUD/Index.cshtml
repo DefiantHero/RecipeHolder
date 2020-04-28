@@ -1,0 +1,67 @@
+﻿@page
+@model RecipeHolder.Pages.CRUD.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="searchString" value="@Model.CurrentFilter"/>
+            <input type="submit" value="Search" class="btn btn-default"/> |
+            <a asp-page="./Index">Back to full list</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Recipe[0].Name)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Instructions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe[0].Servings)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Recipe) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instructions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servings)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
